@@ -1,11 +1,24 @@
+import 'package:firstapp/pages/models/Category_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class HomePage extends StatefulWidget {
+  HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  List<CategoryModel> categories = [];
+
+  void _getCategories() {
+    categories = CategoryModel.getCategories();
+  }
 
   @override
   Widget build(BuildContext context) {
+    _getCategories();
     return Scaffold(
         appBar: appBar(),
         backgroundColor: Colors.white,
@@ -27,6 +40,20 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 10),
+              Container(
+                  height: 150,
+                  color: Colors.red,
+                  child: ListView.builder(
+                    itemCount: categories.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      );
+                    },
+                  ))
             ]),
           ],
         ));
